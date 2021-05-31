@@ -20,7 +20,9 @@ Faster RCNN网络可优化Hyperparameters主要可分为三部分，第一部分
 
 第一部分Backbone此次采用Resnet50 + Feature Pyramid Networks结构。
 
-第二部分Anchor形状，采用
+第二部分Anchor形状，采用Anchor scale采用[32, 64, 128, 256, 512]五种size，Anchor ratio采用[1:1, 1:2, 2:1]三类，共构成15种形状的anchor，这15种形状的anchor是经常使用的常规形状，能兼顾到大型和小型目标，没有针对特定检测对象和场景进行特别布置；NMS相关参数中，threshold设定为0.7，检出anchor数量设定为512个，正样本比例设定为0.5。
+
+第三部分训练过程参数，
 
 ### Results
 
