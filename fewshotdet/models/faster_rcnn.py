@@ -160,6 +160,8 @@ class FasterRCNNConfig:
         self.bg_threshold_high = 0.5
         self.bg_threshold_low = 0.0
         self.class_aware_box = True
+        
+        self.rcnn_finetune_at = 0
 
         # ------------------------ loss cfg -------------------------- #
         self.rpn_smooth_l1_beta = 0  # use L1 loss
