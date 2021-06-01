@@ -29,7 +29,8 @@ class CustomerConfig(models.FasterRCNNConfig):
         self.num_classes = 20
 
         # -------------------------- rcnn cfg ------------------------ #
-        self.rcnn_fs = 0
+        self.rcnn_fs = 1
+        self.rcnn_cosine_scale = 20
 
         # ------------------------ training cfg ---------------------- #
         self.basic_lr = 0.02 / 16
