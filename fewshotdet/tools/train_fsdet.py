@@ -82,14 +82,14 @@ def worker(args):
         logger.info(repr(model))
 
     params_with_grad = []
+    # Freeze the backbone and RPN
     for name, param in model.named_parameters():
-        print('Freeze')
-        print(name)
-        if "bottom_up.conv1" in name and model.cfg.backbone_freeze_at >= 1:
-            continue
-        if "bottom_up.layer1" in name and model.cfg.backbone_freeze_at >= 2:
-            continue
-        params_with_grad.append(param)
+        if "rcnn.fc1" in name and model.cfg.rcnn_finetune_at >= 1:
+            params_with_grad.append(param)
+        if "rcnn.fc2" in name and model.cfg.rcnn_finetune_at >= 1:
+            params_with_grad.append(param)
+        if "rcnn.pred_cls" in name or "rcnn.pred_delta" in name :
+            params_with_grad.append(param)
 
     opt = SGD(
         params_with_grad,
