@@ -28,13 +28,17 @@ class CustomerConfig(models.FasterRCNNConfig):
         )
         self.num_classes = 20
 
+        # -------------------------- rcnn cfg ------------------------ #
+        self.rcnn_fs = 0
+
         # ------------------------ training cfg ---------------------- #
         self.basic_lr = 0.02 / 16
-        self.max_epoch = 24
-        self.lr_decay_stages = [16, 20]
+        self.max_epoch = 40
+        self.lr_decay_stages = [28, 32]
         self.nr_images_epoch = 400
         self.warm_iters = 100
         self.log_interval = 10
+
 
 
 Net = models.FasterRCNN

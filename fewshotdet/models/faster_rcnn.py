@@ -44,7 +44,10 @@ class FasterRCNN(M.Module):
         self.rpn = layers.RPN(cfg)
 
         # ----------------------- build RCNN head ----------------------- #
-        self.rcnn = layers.RCNN(cfg)
+        if cfg.rcnn_fs >= 1:
+            self.rcnn = layers.RCNN_CosSim(cfg)
+        else:
+            self.rcnn = layers.RCNN(cfg)
 
     def preprocess_image(self, image):
         padded_image = layers.get_padded_tensor(image, 32, 0.0)
@@ -153,6 +156,8 @@ class FasterRCNNConfig:
 
         self.pooling_method = "roi_align"
         self.pooling_size = (7, 7)
+        self.rcnn_fs = 0
+        self.rcnn_cosine_scale = -1
 
         self.num_rois = 512
         self.fg_ratio = 0.5
