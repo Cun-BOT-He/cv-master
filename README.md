@@ -28,6 +28,7 @@ Faster RCNN网络可优化Hyperparameters主要可分为三部分，第一部分
 
 ### Results
 
+训练时，total loss一直下降，至epoch 39时，total loss约为0.16左右。
 10 epoch时，得到的网络测试结果为：
 
 mAP@0.5-0.95 = 0.032，AR@0.5-0.95 = 0.173
@@ -40,4 +41,10 @@ mAP@0.5-0.95 = 0.047，AR@0.5-0.95 = 0.15
 
 ## FSDet
 
+依据FSDet论文当中提到的，修改了train process，在微调时将Backbone以及RPN参数freeze，代码见train_fsdet.py。
+
+### Finetune RCNN
+
+首先微调整个RCNN参数，包括卷积头
+### Finetune predict layer
 
