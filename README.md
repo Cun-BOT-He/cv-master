@@ -29,11 +29,11 @@ Faster RCNN网络可优化Hyperparameters主要可分为三部分，第一部分
 ### Results
 
 训练时，total loss一直下降，至epoch 39时，total loss约为0.16左右。
-10 epoch时，得到的网络测试结果为：
+10th epoch，得到的网络测试结果为：
 
 mAP@0.5-0.95 = 0.032，AR@0.5-0.95 = 0.173
 
-23 epoch时，得到的网络测试结果为：
+23th epoch，得到的网络测试结果为：
 
 mAP@0.5-0.95 = 0.047，AR@0.5-0.95 = 0.15
 
@@ -45,6 +45,32 @@ mAP@0.5-0.95 = 0.047，AR@0.5-0.95 = 0.15
 
 ### Finetune RCNN
 
-首先微调整个RCNN参数，包括卷积头
+首先微调整个RCNN参数，包括卷积头以及predict layer。训练参数lr设定为0.02/16，训练epoch设定为24，warm_iter设定为100，lr_decay_stage设定为[16,20]。
+
+训练时，发现从1st epoch开始，rpn_cls和rpn_bbox这两个loss就一直保持在1e-2和1e-3量级，而rcnn_bbox则是先快速升高，后慢慢下降，rcnn_cls则是慢慢下降。
+
+1st epoch，得到的网络测试结果为：
+
+mAP@0.5-0.95 = 0.055，AR@0.5-0.95 = 0.27
+
+23th epoch，得到的网络测试结果为：
+
+mAP@0.5-0.95 = 0.088，AR@0.5-0.95 = 0.255
+
 ### Finetune predict layer
 
+仅微调RCNN中predict layer参数。训练参数lr设定为0.02/16，训练epoch设定为40，warm_iter设定为100，lr_decay_stage设定为[28,32]。
+
+20th epoch，得到的网络测试结果为：
+
+mAP@0.5-0.95 = 0.042，AR@0.5-0.95 = 0.198
+
+39th epoch，得到的网络测试结果为：
+
+mAP@0.5-0.95 = 0.105，AR@0.5-0.95 = 0.331
+
+由上述结果来看，采用微调方式确实提升了小样本场景下检测性能，仅微调predict layer对性能提升更高。
+
+### Cosine Similarity
+
+按照原论文方式，实现了cosine similarity分类器，代码见rcnn_cossim.py。但实际运行效果不理想，训练时loss一直不能收敛，还在找原因。
